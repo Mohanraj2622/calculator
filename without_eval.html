@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url(wallhaven-pk31km.jpg);
+            background-size: 1300px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        input[type="button"] {
+            width: 50px;
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #2C3633;
+            border: 1px solid #F9F680;
+            color: #1fe714;
+            transition: 0.3s;
+        }
+
+        #expression {
+            width: 91px;
+        }
+
+        .clear {
+            padding-right: 1px;
+        }
+
+        .size {
+            width: 300px;
+            border: 1px solid #c430df;
+            border-radius: 5px;
+
+            background-color: linear-gradient(to bottom right, #FF4500, #8B0000);
+
+            padding: 20px;
+            box-shadow: 0 0 10px #E39D78;
+            height: 300px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h2
+            style="background-image: linear-gradient(to bottom right, red, yellow); display: block; width: 150px; border-radius: 2px; color: #265DAF;">
+            Calculator</h2>
+
+        <nav class="size">
+
+            <input class="clear" type="button" onclick="deleteLastCharacter()" value="Del">
+            <input class="clear" type="button" value="AC" onclick="clearExpression()">
+            <input type="text" id="expression" placeholder="Enter Sums">
+            <br>
+            <input type="button" value="7" onclick="appendToExpression('7')">
+            <input type="button" value="8" onclick="appendToExpression('8')">
+            <input type="button" value="9" onclick="appendToExpression('9')">
+            <input type="button" value="+" onclick="appendToExpression('+')">
+            <br>
+            <input type="button" value="4" onclick="appendToExpression('4')">
+            <input type="button" value="5" onclick="appendToExpression('5')">
+            <input type="button" value="6" onclick="appendToExpression('6')">
+            <input type="button" value="-" onclick="appendToExpression('-')">
+            <br>
+            <input type="button" value="1" onclick="appendToExpression('1')">
+            <input type="button" value="2" onclick="appendToExpression('2')">
+            <input type="button" value="3" onclick="appendToExpression('3')">
+            <input type="button" value="*" onclick="appendToExpression('*')">
+            <br>
+            <input type="button" value="0" onclick="appendToExpression('0')">
+            <input type="button" value="." onclick="appendToExpression('.')">
+            <input type="button" value="/" onclick="appendToExpression('/')">
+            <input type="button" value="=" onclick="calculate()">
+
+        </nav>
+    </center>
+    <script>
+        function appendToExpression(value) {
+            document.getElementById('expression').value += value;
+        }
+
+        function clearExpression() {
+            document.getElementById('expression').value = '';
+        }
+        function deleteLastCharacter() {
+            var expression = document.getElementById("expression")
+            expression.value = expression.value.slice(0, -1)
+        }
+
+        function calculate() {
+            var expression = document.getElementById('expression').value;
+            try {
+                var result = evaluateExpression(expression);
+                document.getElementById('expression').value = result;
+            } catch (error) {
+                document.getElementById('expression').value = 'Error';
+            }
+        }
+
+        function evaluateExpression(expression) {
+            var operands = expression.split(/[-+*/]/);
+            var operator = expression.match(/[-+*/]/);
+            var num1 = parseFloat(operands[0]);
+            var num2 = parseFloat(operands[1]);
+            var num3 = parseFloat(operands[2]);
+            var num4 = parseFloat(operands[3]);
+            var num4 = parseFloat(operands[4]);
+
+            switch (operator[0]) {
+                case '+':
+                    return num1 + num2;
+                case '-':
+                    return num1 - num2;
+                case '*':
+                    return num1 * num2;
+                case '/':
+                    if (num2 === 0) {
+                        throw "Division by zero";
+                    }
+                    return num1 / num2;
+                default:
+                    throw "Invalid operator";
+            }
+        }
+        
+        
+    </script>
+</body>
+
+</html>
